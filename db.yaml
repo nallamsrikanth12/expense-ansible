@@ -16,6 +16,14 @@
       state: started
       enabled: yes
 
+  - name: install python and mysql dependencies
+    ansible.builtin.pip:
+      name: 
+      - PyMysql
+      - cryptography
+      executable: pip3.9 # this is python version
+
+# check password is already set up or not
   - name: check the db connections
     community.mysql.mysql_info:
       login_user: root
@@ -28,6 +36,10 @@
   - name: print the  mysql_connection_output 
     ansible.builtin.debug:
       msg: "output: {{mysql_connection_output}}"
+
+  # - name: set the root password
+  #   ansible.builtin.command: mysql_secure_installation --set-root-pass {{mysql_root_password}}
+  #   when: mysql_connection_output 
     
 
 
