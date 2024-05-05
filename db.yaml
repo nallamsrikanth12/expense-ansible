@@ -2,8 +2,11 @@
   hosts: web
   become: yes
   vars:
-    mysql_root_password: ExpenseAPP@1
     login_host: db.srikantheswar.online
+  vars_prompt:
+  - name: mysql_root_password
+    prompt: enter the db password
+    private: no
   tasks:
   - name: mysql install
     ansible.builtin.dnf:
@@ -37,9 +40,9 @@
     ansible.builtin.debug:
       msg: "output: {{mysql_connection_output}}"
 
-  # - name: set the root password
-  #   ansible.builtin.command: mysql_secure_installation --set-root-pass {{mysql_root_password}}
-  #   when: mysql_connection_output 
+   - name: set the root password
+     ansible.builtin.command: mysql_secure_installation --set-root-pass {{mysql_root_password}}
+     when: mysql_connection_output.failed is true
     
 
 
