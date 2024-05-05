@@ -4,8 +4,6 @@
   vars:
     mysql_root_password: ExpenseAPP@1
     login_host: db.srikantheswar.online
-  vars_prompt:
-    prompt: enter the db password
   tasks:
   - name: mysql install
     ansible.builtin.dnf:
