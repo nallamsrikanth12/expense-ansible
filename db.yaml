@@ -1,5 +1,5 @@
 - name: install mysql-server
-  hosts: localhost
+  hosts: web
   become: yes
   vars:
     mysql_root_password: ExpenseAPP@1
