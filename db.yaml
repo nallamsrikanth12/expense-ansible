@@ -1,0 +1,36 @@
+- name: install mysql-server
+  hosts: localhost
+  become: yes
+  vars:
+    mysql_root_password: ExpenseAPP@1
+    login_host: db.srikantheswar.online
+  vars_prompt:
+    prompt: enter the db password
+  tasks:
+  - name: mysql install
+    ansible.builtin.dnf:
+      name: mysql-server
+      state: latest
+
+  - name: Start MySQL Service
+    ansible.builtin.service:
+      name: mysqld
+      sate: started
+      enabled: yes
+
+  - name: check the db connections
+    community.mysql.mysql_info:
+      login_user: root
+      login_password: "{{mysql_root_password}}"
+      login_host: "{{login_host}}"
+      filter: version
+    ignore_errors: yes
+    register: mysql_connection_output
+
+  - name: print the  mysql_connection_output 
+    ansible.builtin.debug:
+      msg: "output: {{mysql_connection_output}}"
+    
+
+
+
