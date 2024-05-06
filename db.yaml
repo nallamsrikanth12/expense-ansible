@@ -1,5 +1,5 @@
 - name: install mysql-server
-  hosts: web
+  hosts: db
   become: yes
   vars:
     login_host: db.srikantheswar.online
