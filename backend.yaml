@@ -1,6 +1,10 @@
 - name: configure the backend server
   hosts: backend
   become: yes
+  vars:
+    mysql_root_password: ExpenseApp@1
+    login_host: db.srikantheswar.online
+
   tasks:
   - name: disable nodejs
     ansible.builtin.command: dnf module disable nodejs -y
@@ -10,8 +14,11 @@
 
   - name: install nodejs
     ansible.builtin.dnf:
-      name: nodejs
+      name: "{{item}}"
       state: latest
+    loop:
+      - nodejs
+      - mysql
   - name: create a user
     ansible.builtin.user:
       name: expense
@@ -40,3 +47,14 @@
     ansible.builtin.copy:
       src: backend.service
       dest: /etc/systemd/system/backend.service
+  
+
+  - name: load schema
+    community.mysql.mysql_db:
+      login_user: root
+      login_password: "{{mysql_root_password}}"
+      login_host: "{{login_host}}"
+      filter: version
+      name: all
+      target: /app/schema/backend.sql
+
