@@ -18,8 +18,8 @@
       path:  /usr/share/nginx/html
       state: absent
   
-  # - name: create the html directry
-  #   ansible.builtin.file:
-  #     path: cd /usr/share/nginx/html
-  #     state: directory
+  - name: create the html directry
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: directory
   
