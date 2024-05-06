@@ -20,7 +20,7 @@
       - nodejs
       - mysql
 
-  - name: install pysql
+  - name: install python and mysql dependencies
     ansible.builtin.pip:
       name: 
       - PyMysql
