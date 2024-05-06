@@ -19,6 +19,14 @@
     loop:
       - nodejs
       - mysql
+
+  - name: install pysql
+    ansible.builtin.pip:
+      name: 
+      - PyMysql
+      - cryptography
+    executable: pip3.9 
+
   - name: create a user
     ansible.builtin.user:
       name: expense
