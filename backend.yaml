@@ -57,4 +57,5 @@
       filter: version
       name: all
       target: /app/schema/backend.sql
+      state: import
 
